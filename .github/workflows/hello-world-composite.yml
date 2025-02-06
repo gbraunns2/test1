@@ -25,3 +25,16 @@ jobs:
     - name: Echo the greeting's time
       run: echo 'The time was ${{ steps.hello.outputs.time }}.'
       shell: bash
+
+
+  hello_world_job2:
+    runs-on: ubuntu-latest
+    name: A job2 to say hello
+    steps:
+      - uses: actions/checkout@v4
+      - id: hello-world
+        uses: ./.github/actions/hello-world-composite-action
+        with:
+          who-to-greet: 'Mona the Octocat from composite action'
+      - run: echo random-number from composite action ${{ steps.hello-world.outputs.random-number }}
+        shell: bash
